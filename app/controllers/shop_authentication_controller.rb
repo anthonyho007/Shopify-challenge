@@ -1,4 +1,5 @@
 class ShopAuthenticationController < ApplicationController
+    skip_before_action :validate_request, only: [:authenticate, :signup]
     def authenticate
         token = AuthenticateShop.new(authenticate_param[:name], authenticate_param[:password]).call
         shop = Shop.find_by(name: authenticate_param[:name])

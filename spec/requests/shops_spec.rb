@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Shops Api', type: :request do
     let!(:shops) { create_list(:shop, 2) }
     let!(:shop_id) { shops.first.id }
+    let(:head) { { 'Authorization' => generate_token(shops.first.id) } }
 
     # describe 'GET /shops' do
     #     before { get '/shops' }
@@ -18,7 +19,7 @@ RSpec.describe 'Shops Api', type: :request do
     # end
 
     describe 'GET /shops/:id' do
-        before { get "/shops/#{shop_id}" }
+        before { get "/shops/#{shop_id}", params: {}, headers: head }
 
         it 'returns shop' do
             expect(json).not_to be_empty
@@ -29,7 +30,7 @@ RSpec.describe 'Shops Api', type: :request do
     describe 'PUT /shops/:id' do
         let(:qstring) { { name: 'tim' } }
 
-        before { put "/shops/#{shop_id}", params: qstring }
+        before { put "/shops/#{shop_id}", params: qstring, headers: head }
 
         it 'update shop' do
             expect(response.body).to be_empty
@@ -41,7 +42,7 @@ RSpec.describe 'Shops Api', type: :request do
     end
 
     describe 'DELETE /shops/:id' do
-        before { delete "/shops/#{shop_id}" }
+        before { delete "/shops/#{shop_id}", params: {}, headers: head}
 
         it 'returns status 204' do
             expect(response).to have_http_status(204)
