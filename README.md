@@ -1,24 +1,38 @@
-# README
+# Shop API Server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple Shop API server in Ruby with basic functionalities. This is built for Shopify backend developer challenge.
 
-Things you may want to cover:
+### Installations
+download / clone with
 
-* Ruby version
+    git clone https://github.com/anthonyho007/shop-api-server.git
 
-* System dependencies
+to install postgresql, and rails on your local machine, you can follow the links
 
-* Configuration
+    https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres
 
-* Database creation
+    https://gorails.com/setup/ubuntu/18.10
 
-* Database initialization
+to install the project dependencies
 
-* How to run the test suite
+    cd shop-api-server
 
-* Services (job queues, cache servers, search engines, etc.)
+    bundle install
 
-* Deployment instructions
+    rake db:setup
 
-* ...
+to start the server
+
+    rails s
+
+### API Usage
+
+    TBD
+
+### Design
+
+    TBD
+
+### Development
+
+    TBD
