@@ -1,16 +1,15 @@
 class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :update, :destroy]
-    before_action :find_products, only: [:create, :update]
-
     def index
         @orders = current_shop.orders
+        updateOrders
         json_response(@orders)
     end
 
     def create
         @order = current_shop.orders.create!()
-        @order.products = @order_products
-        @order.total = get_total
+        @order.create_line_items(params[:product_ids_and_quantities])
+        @order.total = get_total(@order.lineitems)
         json_response(@order, :created)
     end
 
@@ -19,8 +18,9 @@ class OrdersController < ApplicationController
     end
 
     def update
-        @order.products = @order_products
-        @order.total = get_total
+        @order.lineitems.destroy_all
+        @order.create_line_items(params[:product_ids_and_quantities])
+        @order.total = get_total(@order.lineitems)
         json_response(@order, :accepted)
     end
 
@@ -30,18 +30,25 @@ class OrdersController < ApplicationController
 
     private
     def order_params
-        params.permit(:product_ids, :total)
+        params.permit(:product_ids_and_quantities, :total)
     end
 
     def set_order
         @order = current_shop.orders.find(params[:id])
+        @order.total = get_total(@order.lineitems)
     end
 
-    def find_products
-        @order_products = current_shop.products.find(params[:product_ids])
+    def get_total(lineitems)
+        total = 0
+        lineitems.each do |lineitem|
+            total += lineitem.price * lineitem.quantities
+        end
+        return total
     end
 
-    def get_total
-        return @order_products.map(&:price).sum
+    def updateOrders
+        @orders.each do |order|
+            order.total = get_total(order.lineitems)
+        end
     end
 end
