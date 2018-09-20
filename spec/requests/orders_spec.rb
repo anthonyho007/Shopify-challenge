@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Order API", type: :request do
 
     let!(:shop) { create(:shop) }
+    let!(:shop2) { create(:shop) }
     let!(:products) { create_list(:product, 5, shop_id: shop.id) }
     let!(:head) { { 'Authorization' => generate_token(shop.id) } }
     let!(:order_products) { products[0 .. 3] }
@@ -58,7 +59,6 @@ RSpec.describe "Order API", type: :request do
 
         it 'update product' do
             expect(json).not_to be_empty
-            puts json
             expect(json['order']['id']).to eq(order_id)
             expect(json['order']['lineitems'].size).to eq(2)
         end
