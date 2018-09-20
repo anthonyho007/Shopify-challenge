@@ -3,13 +3,13 @@ FactoryBot.define do
         name { Faker::Name.name }
         password { 'foolb' }
 
-        factory :shop_with_items do
+        factory :shop_with_products do
             transient do
-                items_count { 5 }
+                products_count { 5 }
             end
 
             after(:create) do |shop, evaluator|
-                create_list(:item, evaluator.items_count, shop: shop)
+                create_list(:product, evaluator.products_count, shop: shop)
             end
         end
     end

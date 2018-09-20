@@ -1,5 +1,5 @@
 FactoryBot.define do
-    factory :placement do
+    factory :lineproduct do
       order
       product
     end

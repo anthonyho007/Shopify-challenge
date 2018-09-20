@@ -15,33 +15,28 @@ ActiveRecord::Schema.define(version: 2018_09_19_143701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "items", force: :cascade do |t|
+  create_table "lineitems", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_lineitems_on_order_id"
+    t.index ["product_id"], name: "index_lineitems_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "shop_id"
+    t.decimal "total", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 8, scale: 2
     t.integer "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "items_orders", id: false, force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "item_id", null: false
-    t.index ["order_id", "item_id"], name: "index_items_orders_on_order_id_and_item_id"
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.integer "shop_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "placements", force: :cascade do |t|
-    t.bigint "order_id"
-    t.bigint "item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_id"], name: "index_placements_on_item_id"
-    t.index ["order_id"], name: "index_placements_on_order_id"
   end
 
   create_table "shops", force: :cascade do |t|
@@ -51,6 +46,6 @@ ActiveRecord::Schema.define(version: 2018_09_19_143701) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "placements", "items"
-  add_foreign_key "placements", "orders"
+  add_foreign_key "lineitems", "orders"
+  add_foreign_key "lineitems", "products"
 end

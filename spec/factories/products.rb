@@ -1,5 +1,5 @@
 FactoryBot.define do
-    factory :item do
+    factory :product do
         name { Faker::Name.name }
         price { rand() * 100 }
         shop
