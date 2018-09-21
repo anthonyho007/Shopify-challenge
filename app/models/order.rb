@@ -6,9 +6,9 @@ class Order < ApplicationRecord
     validates :shop_id, presence: true
 
     def create_line_items(ids_and_quantities)
-        ids_and_quantities.each do |key, value|
-            id = value[0]
-            quant = value[1]
+        ids_and_quantities.each do |id_and_quantity|
+            id = id_and_quantity['product_id']
+            quant = id_and_quantity['quantities']
             # puts id_and_quantity
             self.lineitems.create!(product_id: id, quantities: quant)
         end

@@ -36,10 +36,17 @@ RSpec.describe "Order API", type: :request do
     end
 
     describe "POST /orders" do
-        let(:product_ids_quantities) { {
-            "1":[order_products.second.id, 3],
-            "2": [order_products.third.id, 2]
-        } }
+
+        let(:product_ids_quantities) { [
+            {
+                "product_id": order_products.second.id,
+                "quantities": 3
+            },
+            {
+                "product_id": order_products.third.id,
+                "quantities": 2
+            }
+        ] }
         let(:valid_order) { { product_ids_and_quantities: product_ids_quantities } }
         before { post '/orders', params: valid_order, headers: head }
         it 'returns order object' do
@@ -50,10 +57,16 @@ RSpec.describe "Order API", type: :request do
     end
 
     describe "PUT /orders:id" do
-        let(:product_ids_quantities) { {
-            "1":[order_products.first.id, 4],
-            "2": [order_products.third.id, 3]
-        }}
+        let(:product_ids_quantities) { [
+            {
+                "product_id": order_products.second.id,
+                "quantities": 3
+            },
+            {
+                "product_id": order_products.third.id,
+                "quantities": 2
+            }
+        ] }
         let(:qstring) {{ product_ids_and_quantities: product_ids_quantities }}
         before {put "/orders/#{order_id}", params: qstring, headers: head }
 
