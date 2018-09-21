@@ -14,7 +14,7 @@ A simple Shop API server in Ruby with basic functionalities. This is built for S
 4. [Design](#Design)
 5. [Development](#Development)
 
-## Installations [](#){name=Installations}
+## Installations []<a name="Installations"></a>
 download / clone with
 
     git clone https://github.com/anthonyho007/shop-api-server.git
@@ -37,7 +37,7 @@ to start the server
 
     rails s
 
-## Basic Usage[](#){name=Usage}
+## Basic Usage[]<a name="Usage"></a>
 
 You would need to sign in or sign up with a shop account in order to retrieve an authorization token for you to modify any products or orders using Product, Order, and Shop API.
 
@@ -56,9 +56,8 @@ All Shop, Product and Order API would require you to pass in the token for autho
 
 Please refer to the API Docs below for more detailed usage.
 
-## API Docs[](#){name=Docs}
-
-### Authenticate API(#){name=Auth}
+## API Docs<a name="Docs"></a>
+### Authenticate API<a name="Auth"></a>
 
 #### Authenticate API Endpoints
 
@@ -110,7 +109,7 @@ The following API will let you create or log in to your own shop
 ```
 
 
-### Shop API(#){name=Shop}
+### Shop API<a name="Shop"></a>
 
 #### Shop API Endpoints 
 
@@ -169,7 +168,7 @@ The following API will let you query or modify your own shop properties
 HTTP/1.1 204 No Content
 ```
 
-### Product API(#){name=Product}
+### Product API<a name="Product"></a>
 
 #### Product API Endpoints
 
@@ -292,7 +291,7 @@ HTTP/1.1 204 No Content
 ```
 
 
-### Order API(#){name=Order}
+### Order API<a name="Order"></a>
 
 #### Order API Endpoints
 
@@ -448,10 +447,10 @@ The following API will let you do the following with Order resources of your own
 HTTP/1.1 204 No Content
 ```
 
-## Design[](#){name=Design}
+## Design<a name="Design"></a>
 
     TBD
 
-## Development[](#){name=Development}
+## Development<a name="Development"></a>
 
     TBD
