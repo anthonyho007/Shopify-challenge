@@ -9,7 +9,6 @@ RSpec.describe 'Product API', type: :request do
     describe 'GET /products' do
         before { get '/products', params:{}, headers: head }
         it 'returns all products from a shop' do
-            puts json
             expect(json).not_to be_empty
             expect(json['products'].size).to eq(5)
         end
@@ -24,7 +23,6 @@ RSpec.describe 'Product API', type: :request do
 
         it 'returns product' do
             expect(json).not_to be_empty
-            puts json
             expect(json['id']).to eq(product1_id)
             expect(json['name']).to eq(products.first.name)
             expect(json['price']).to eq(products.first.price.to_f.round(2).to_s)
@@ -40,7 +38,6 @@ RSpec.describe 'Product API', type: :request do
             before { post '/products', params: valid_product, headers: head }
             it 'returns products object' do
                 expect(json).not_to be_empty
-                puts json
                 expect(json['name']).to eq("Jack Daniel")
                 expect(json['price']).to eq("23.23")
             end
@@ -53,7 +50,6 @@ RSpec.describe 'Product API', type: :request do
 
         it 'update product' do
             expect(json).not_to be_empty
-            puts json
             expect(json['id']).to eq(product1_id)
             expect(json['name']).to eq(products.first.name)
             expect(json['price']).to eq("12.22")

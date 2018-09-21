@@ -21,9 +21,10 @@ RSpec.describe 'Shops Api', type: :request do
     describe 'GET /shops/:id' do
         before { get "/shops/#{shop_id}", params: {}, headers: head }
 
-        it 'returns shop' do
+        it 'returns shop' do 
+
             expect(json).not_to be_empty
-            expect(json['id']).to eq(shop_id)
+            expect(json['shop']['id']).to eq(shop_id)
         end
     end
 
@@ -33,11 +34,12 @@ RSpec.describe 'Shops Api', type: :request do
         before { put "/shops/#{shop_id}", params: qstring, headers: head }
 
         it 'update shop' do
-            expect(response.body).to be_empty
+            expect(json).not_to be_empty
+            expect(json['shop']['name']).to eq('tim')
         end
 
         it 'returns status 204' do
-            expect(response).to have_http_status(204)
+            expect(response).to have_http_status(202)
         end
     end
 

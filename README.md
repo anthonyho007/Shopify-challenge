@@ -2,19 +2,21 @@
 
 A simple Shop API server in Ruby with basic functionalities. This is built for Shopify backend developer challenge.
 
+<br/>
 ## Table of Content
 
 1. [Installaltions](#Installations)
 2. [Basic Usage](#Usage)
+3. [API Docs](#Docs)
    * [Authentication API](#Auth)
    * [Shop API](#Shop)
    * [Product API](#Product)
    * [Order API](#Order)
-3. [API Docs](#Docs)
 4. [Design](#Design)
 5. [Development](#Development)
 
-## Installations []<a name="Installations"></a>
+<br/>
+## Installations <a name="Installations"></a>
 download / clone with
 
     git clone https://github.com/anthonyho007/shop-api-server.git
@@ -36,8 +38,8 @@ to install the project dependencies
 to start the server
 
     rails s
-
-## Basic Usage[]<a name="Usage"></a>
+<br/>
+## Basic Usage <a name="Usage"></a>
 
 You would need to sign in or sign up with a shop account in order to retrieve an authorization token for you to modify any products or orders using Product, Order, and Shop API.
 
@@ -55,9 +57,26 @@ All Shop, Product and Order API would require you to pass in the token for autho
     curl -H 'Authorization: "eyJhbGciOiJIUzI1NiJ9.ey.71gfw-NLCRoU2W-t00sdLljTfLUFXzy32HhllCW1-9s"' http://<ip-address>/orders
 
 Please refer to the API Docs below for more detailed usage.
+<br/>
+
+## Design<a name="Design"></a>
+
+    TBD
+<br/>
+
+## Development<a name="Development"></a>
+
+To run unit tests
+
+
+
+<br/>
 
 ## API Docs<a name="Docs"></a>
+<br/>
+
 ### Authenticate API<a name="Auth"></a>
+<br/>
 
 #### Authenticate API Endpoints
 
@@ -69,6 +88,7 @@ The following API will let you create or log in to your own shop
     * POST /signup
     Creates a new shop and returns a token for authentication
 
+<br/>
 #### Sign in with existing shop credentials
 
 **POST      /signin**
@@ -87,6 +107,7 @@ The following API will let you create or log in to your own shop
     "token": "eyJhbGciOiJIUzI1NiJ9.eyJzaG9wX2lkIjI3IylfPT_dtFM"
 }
 ```
+<br/>
 
 #### Create a new shop through signup
 
@@ -108,9 +129,9 @@ The following API will let you create or log in to your own shop
 
 ```
 
-
+<br/>
 ### Shop API<a name="Shop"></a>
-
+<br/>
 #### Shop API Endpoints 
 
 The following API will let you query or modify your own shop properties
@@ -124,23 +145,29 @@ The following API will let you query or modify your own shop properties
     * DELETE /shop/:id
     Delete your shop
 
-
+<br/>
 #### Get Shop properties
 
-**GET      /shops/:id**           -H 'Authorization: "[token]"'
+**GET      /shops/:id**           
+-H 'Authorization: "[token]"'
 
 **Response**
 ```sh
 {
-    "id": 1,
-    "name": "AnthonyHo",
-    "created_at": "2018-09-21T00:15:45.652Z"
+    "shop": {
+        "id": 1,
+        "name": "AnthonyHo",
+        "created_at": "2018-09-21T00:15:45.652Z"
+    }
 }
 
 ```
+<br/>
+
 #### Update Shop properties
 
-**PUT      /shops/:id**           -H 'Authorization: "[token]"'
+**PUT      /shops/:id**           
+-H 'Authorization: "[token]"'
 ```sh
 {
     "name": "Tony The Great",
@@ -151,16 +178,21 @@ The following API will let you query or modify your own shop properties
 **Response**
 ```sh
 {
-    "id": 1,
-    "name": "Tony The Great",
-    "created_at": "2018-09-21T00:15:45.652Z"
+    "shop": {
+        "id": 1,
+        "name": "Tony The Great",
+        "created_at": "2018-09-21T00:15:45.652Z"
+    }
 }
 
 ```
 
+<br/>
+
 #### Delete Shop
 
-**DELETE      /shop/:id**           -H 'Authorization: "[token]"'
+**DELETE      /shop/:id**           
+-H 'Authorization: "[token]"'
 
 **Response**
 
@@ -168,7 +200,11 @@ The following API will let you query or modify your own shop properties
 HTTP/1.1 204 No Content
 ```
 
+<br/>
+
 ### Product API<a name="Product"></a>
+
+<br/>
 
 #### Product API Endpoints
 
@@ -189,9 +225,12 @@ The following API will let you do the following with Product resources of your o
     * DELETE /products/:id
     Deletes a product
 
+<br/>
+
 #### Get all products
 
-**GET      /products**           -H 'Authorization: "[token]"'
+**GET      /products**           
+-H 'Authorization: "[token]"'
 
 **Response**
 ```sh
@@ -217,10 +256,12 @@ The following API will let you do the following with Product resources of your o
 }
 
 ```
+<br/>
 
 #### Get a specific product
 
-**GET      /products/:id**           -H 'Authorization: "[token]"'
+**GET      /products/:id**           
+-H 'Authorization: "[token]"'
 
 **Response**
 ```sh
@@ -235,9 +276,12 @@ The following API will let you do the following with Product resources of your o
 
 ```
 
+<br/>
+
 #### Create a new product
 
-**POST      /products/:id**           -H 'Authorization: "[token]"'
+**POST      /products/:id**           
+-H 'Authorization: "[token]"'
 ```sh
 {
     "name": "Happy Tree House Mouse",
@@ -258,9 +302,12 @@ The following API will let you do the following with Product resources of your o
 
 ```
 
+<br/>
+
 #### Update a specific product
 
-**PUT      /products/:id**           -H 'Authorization: "[token]"'
+**PUT      /products/:id**           
+-H 'Authorization: "[token]"'
 ```sh
 {
     "price": 12.00
@@ -280,9 +327,12 @@ The following API will let you do the following with Product resources of your o
 
 ```
 
+<br/>
+
 #### Delete a product
 
-**DELETE      /product/:id**           -H 'Authorization: "[token]"'
+**DELETE      /product/:id**           
+-H 'Authorization: "[token]"'
 
 **Response**
 
@@ -290,8 +340,11 @@ The following API will let you do the following with Product resources of your o
 HTTP/1.1 204 No Content
 ```
 
+<br/>
 
 ### Order API<a name="Order"></a>
+
+<br/>
 
 #### Order API Endpoints
 
@@ -312,9 +365,12 @@ The following API will let you do the following with Order resources of your own
     * DELETE /orders/:id
     Deletes an order
 
+<br/>
+
 #### Get all orders
 
-**GET      /orders**           -H 'Authorization: "[token]"'
+**GET      /orders**          
+-H 'Authorization: "[token]"'
 
 **Response**
 ```sh
@@ -341,9 +397,12 @@ The following API will let you do the following with Order resources of your own
 
 ```
 
+<br/>
+
 #### Get a specific order
 
-**GET      /orders/:id**           -H 'Authorization: "[token]"'
+**GET      /orders/:id**           
+-H 'Authorization: "[token]"'
 
 **Response**
 ```sh
@@ -364,9 +423,12 @@ The following API will let you do the following with Order resources of your own
 
 ```
 
+<br/>
+
 #### Create a new order
 
-**POST      /orders/:id**           -H 'Authorization: "[token]"'
+**POST      /orders/:id**           
+-H 'Authorization: "[token]"'
 ```sh
 {
     "product_ids_and_quantities": [
@@ -406,9 +468,12 @@ The following API will let you do the following with Order resources of your own
 
 ```
 
+<br/>
+
 #### Update a specific order
 
-**PUT      /orders/:id**           -H 'Authorization: "[token]"'
+**PUT      /orders/:id**           
+-H 'Authorization: "[token]"'
 ```sh
 {
     "product_ids_and_quantities": [
@@ -437,6 +502,8 @@ The following API will let you do the following with Order resources of your own
 
 ```
 
+<br/>
+
 #### Delete a order
 
 **DELETE      /order/:id**           -H 'Authorization: "[token]"'
@@ -446,11 +513,3 @@ The following API will let you do the following with Order resources of your own
 ```sh
 HTTP/1.1 204 No Content
 ```
-
-## Design<a name="Design"></a>
-
-    TBD
-
-## Development<a name="Development"></a>
-
-    TBD

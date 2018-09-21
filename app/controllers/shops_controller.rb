@@ -7,7 +7,7 @@ class ShopsController < ApplicationController
 
     def update
         @shop.update(shop_params)
-        json_response(@shop)
+        json_response(@shop, :accepted)
     end
 
     def destroy
