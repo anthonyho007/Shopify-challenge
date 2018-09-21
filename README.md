@@ -38,7 +38,7 @@ You would need to sign in or sign up with a shop account in order to retrieve an
         "token": "eyJhbGciOiJIUzI1NiJ9.ey.71gfw-NLCRoU2W-t00sdLljTfLUFXzy32HhllCW1-9s"
     }
 
-All Shop, Product and Order API would require you to pass in the token for authorization
+All Shop, Product and Order API would require you to pass in the token for authorization in the header
 
     curl -H 'Authorization: "eyJhbGciOiJIUzI1NiJ9.ey.71gfw-NLCRoU2W-t00sdLljTfLUFXzy32HhllCW1-9s"' http://<ip-address>/orders
 
@@ -50,7 +50,7 @@ Please refer to the API Docs below for more detailed usage.
 
 #### Authenticate API Endpoints
 
-The following API will let you create or log into your own shop
+The following API will let you create or log in to your own shop
 
     * POST /signin
     Login with current shop credentials and returns a token for authentication

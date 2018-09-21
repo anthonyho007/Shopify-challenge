@@ -1,16 +1,6 @@
 class ShopsController < ApplicationController
     before_action :set_shop, only: [:show, :update, :destroy]
 
-    # def index
-    #     @shops = Shop.all
-    #     json_response(@shops)
-    # end
-
-    # def create
-    #     @shop = Shop.create!(shop_params)
-    #     json_response(@shop, :created)
-    # end
-
     def show
         json_response(@shop)
     end
@@ -27,10 +17,10 @@ class ShopsController < ApplicationController
 
     private
     def shop_params
-        params.permit(:name)
+        params.permit(:name, :password)
     end
 
     def set_shop
-        @shop = Shop.find(params[:id])
+        @shop = current_shop
     end
 end
