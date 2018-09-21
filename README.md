@@ -3,6 +3,8 @@
 A simple Shop API server in Ruby with basic functionalities. This is built for Shopify backend developer challenge.
 
 <br/>
+
+
 ## Table of Content
 
 1. [Installaltions](#Installations)
@@ -18,6 +20,8 @@ A simple Shop API server in Ruby with basic functionalities. This is built for S
 7. [Deployment](#Deployment)
 
 <br/>
+
+
 ## Installations <a name="Installations"></a>
 download / clone with
 
@@ -41,6 +45,7 @@ to start the server
 
     rails s
 <br/>
+
 ## Basic Usage <a name="Usage"></a>
 
 You would need to sign in or sign up with a shop account in order to retrieve an authorization token for you to modify any products or orders using Product, Order, and Shop API.
@@ -68,6 +73,7 @@ A demo of this app is hosted through google cloud platform at http://35.232.174.
 Feel free to play arourd with this server by signin with name="AnthonyHo" and password="foobar"
 
 <br/>
+
 ## Design<a name="Design"></a>
 
 ###Database design / relationship
