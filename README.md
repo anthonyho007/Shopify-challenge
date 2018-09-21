@@ -7,13 +7,15 @@ A simple Shop API server in Ruby with basic functionalities. This is built for S
 
 1. [Installaltions](#Installations)
 2. [Basic Usage](#Usage)
-3. [API Docs](#Docs)
+3. [Demo](#Usage)
+4. [Design](#Design)
+5. [Development](#Development)
+6. [API Docs](#Docs)
    * [Authentication API](#Auth)
    * [Shop API](#Shop)
    * [Product API](#Product)
    * [Order API](#Order)
-4. [Design](#Design)
-5. [Development](#Development)
+7. [Deployment](#Deployment)
 
 <br/>
 ## Installations <a name="Installations"></a>
@@ -59,16 +61,37 @@ All Shop, Product and Order API would require you to pass in the token for autho
 Please refer to the API Docs below for more detailed usage.
 <br/>
 
+## Demo <a name="Demo"></a>
+
+A demo of this app is hosted through google cloud platform at http://35.232.174.37 .
+
+Feel free to play arourd with this server by signin with name="AnthonyHo" and password="foobar"
+
+<br/>
 ## Design<a name="Design"></a>
 
-    TBD
+###Database design / relationship
+
+![Database design diagram](db-design-diagram.png)
+
+Each items and orders should belongs to a shop, since a shop cant sell a product or place an order that is not theirs. Order and product relationship is reinforced by has many through association where order has many products through Lineitems, because we dont want to aggregate each product into the order object and that will defeats the purpose of relational database.
+
+### Security
+
+All API requests except Authentication API would require user to pass in Authorization token in the header and the token can be obtain through Authentication API.
+
+### Deloyment
+
+A demo API server (http://35.232.174.37) is hosted on Google Cloud Platform on top of a kubernette engine with a docker image of the API server.
+
+
 <br/>
 
 ## Development<a name="Development"></a>
 
-To run unit tests
+To run Unit Tests
 
-
+    bundle exec rspec -fd
 
 <br/>
 
@@ -513,3 +536,23 @@ The following API will let you do the following with Order resources of your own
 ```sh
 HTTP/1.1 204 No Content
 ```
+
+## Deployment
+
+In order to deploy this app to google cloud engine, you would first need a cluster for kubernettes and a database instance in CloudSQL. 
+
+You can follow this guide to configure your clusters and database instance. 
+
+    https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
+
+Then you would need to build the docker image and push it to google cloud registry
+
+    docker build -t gcr.io/[YOUR_PROJECT_ID]/[APP_NAME] .
+
+    gcloud docker -- push gcr.io/[YOUR_PROJECT_ID]/[APP_NAME] 
+
+You can now create deployment with the following commands and your app will be up on cloud.
+
+    kubectl create -f deployment/psql_deployment.yaml
+    kubectl create -f deployment/cloudsql-migrate.yaml
+    kubectl create -f deployment/api-service.yaml
