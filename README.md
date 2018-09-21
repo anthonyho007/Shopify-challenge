@@ -60,7 +60,7 @@ The following API will let you create or log in to your own shop
 
 #### Sign in with existing shop credentials
 
-** POST /signin **
+**POST /signin**
 ```sh
 {
     "name": "Anthony Ho",
@@ -68,7 +68,7 @@ The following API will let you create or log in to your own shop
 }
 
 ```
-Response
+**Response**
 ```sh
 {
     "id": 1,
@@ -79,7 +79,7 @@ Response
 
 #### Create a new shop through signup
 
-** POST /signup **
+**POST /signup**
 ```sh
 {
     "name": "Anthony Ho",
@@ -87,7 +87,7 @@ Response
 }
 
 ```
-Response
+**Response**
 ```sh
 {
     "id": 2,
@@ -116,9 +116,9 @@ The following API will let you query or modify your own shop properties
 
 #### Get Shop properties
 
-** GET /shops/:id ** -H 'Authorization: "[token]"'
+**GET /shops/:id** -H 'Authorization: "[token]"'
 
-Response
+**Response**
 ```sh
 {
     "id": 1,
@@ -129,7 +129,7 @@ Response
 ```
 #### Update Shop properties
 
-** PUT /shops:id ** -H 'Authorization: "[token]"'
+**PUT /shops:id** -H 'Authorization: "[token]"'
 ```sh
 {
     "name": "Tony The Great",
@@ -137,7 +137,7 @@ Response
 }
 
 ```
-Response
+**Response**
 ```sh
 {
     "id": 1,
@@ -149,9 +149,9 @@ Response
 
 #### Delete Shop
 
-** DELETE /shop/:id ** -H 'Authorization: "[token]"'
+**DELETE /shop/:id** -H 'Authorization: "[token]"'
 
-Response
+**Response**
 
 ```sh
 HTTP/1.1 204 No Content
@@ -178,7 +178,108 @@ The following API will let you do the following with Product resources of your o
     * DELETE /products/:id
     Deletes a product
 
-**
+#### Get all products
+
+**GET /products** -H 'Authorization: "[token]"'
+
+**Response**
+```sh
+{
+    "products": [
+        {
+            "created_at": "2018-09-21T00:26:14.627Z",
+            "id": 1,
+            "name": "CherryMxBlue keyboard",
+            "price": "12.22",
+            "shop_id": 1,
+            "updated_at": "2018-09-21T00:26:14.627Z"
+        },
+        {
+            "created_at": "2018-09-21T04:37:43.265Z",
+            "id": 2,
+            "name": "Happy Tree House Mouse",
+            "price": "24.12",
+            "shop_id": 1,
+            "updated_at": "2018-09-21T04:37:43.265Z"
+        }
+    ]
+}
+
+```
+
+#### Get a specific product
+
+**GET /products/:id** -H 'Authorization: "[token]"'
+
+**Response**
+```sh
+{
+    "created_at": "2018-09-21T04:37:43.265Z",
+    "id": 2,
+    "name": "Happy Tree House Mouse",
+    "price": "24.12",
+    "shop_id": 1,
+    "updated_at": "2018-09-21T04:37:43.265Z"
+}
+
+```
+
+#### Create a new product
+
+**POST /products/:id** -H 'Authorization: "[token]"'
+```sh
+{
+    "name": "Happy Tree House Mouse",
+    "price": 24.12
+}
+
+```
+**Response**
+```sh
+{
+    "created_at": "2018-09-21T04:37:43.265Z",
+    "id": 2,
+    "name": "Happy Tree House Mouse",
+    "price": "24.12",
+    "shop_id": 1,
+    "updated_at": "2018-09-21T04:37:43.265Z"
+}
+
+```
+
+#### Update a specific product
+
+**PUT /products/:id** -H 'Authorization: "[token]"'
+```sh
+{
+    "price": 12.00
+}
+
+```
+**Response**
+```sh
+{
+    "created_at": "2018-09-21T04:37:43.265Z",
+    "id": 2,
+    "name": "Happy Tree House Mouse",
+    "price": "12.00",
+    "shop_id": 1,
+    "updated_at": "2018-09-21T04:37:43.265Z"
+}
+
+```
+
+#### Delete a product
+
+**DELETE /product/:id** -H 'Authorization: "[token]"'
+
+**Response**
+
+```sh
+HTTP/1.1 204 No Content
+```
+
+
 ### Order API
 
 The following API will let you do the following with Order resources of your own shop
