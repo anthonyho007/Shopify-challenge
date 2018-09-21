@@ -58,6 +58,45 @@ The following API will let you create or log in to your own shop
     * POST /signup
     Creates a new shop and returns a token for authentication
 
+#### Sign in with existing shop credentials
+
+```sh
+** POST /signin **
+{
+    "name": "Anthony Ho",
+    "password": "foolb"
+}
+
+```
+Response
+```sh
+{
+    "id": 1,
+    "name": "AnthonyHo",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzaG9wX2lkIjI3IylfPT_dtFM"
+}
+```
+
+#### Create a new shop through signup
+
+```sh
+** POST /signup **
+{
+    "name": "Anthony Ho",
+    "password": "foolb"
+}
+
+```
+Response
+```sh
+{
+    "id": 2,
+    "name": "TonyHo",
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzaG9wX2lkIjoyLmcbw1vqFQ4"
+}
+
+```
+
 
 ### Shop API
 
@@ -95,7 +134,7 @@ The following API will let you do the following with Product resources of your o
     * DELETE /products/:id
     Deletes a product
 
-
+**
 ### Order API
 
 The following API will let you do the following with Order resources of your own shop
