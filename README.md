@@ -60,8 +60,8 @@ The following API will let you create or log in to your own shop
 
 #### Sign in with existing shop credentials
 
-```sh
 ** POST /signin **
+```sh
 {
     "name": "Anthony Ho",
     "password": "foolb"
@@ -79,8 +79,8 @@ Response
 
 #### Create a new shop through signup
 
-```sh
 ** POST /signup **
+```sh
 {
     "name": "Anthony Ho",
     "password": "foolb"
@@ -112,6 +112,50 @@ The following API will let you query or modify your own shop properties
 
     * DELETE /shop/:id
     Delete your shop
+
+
+#### Get Shop properties
+
+** GET /shops/:id ** -H 'Authorization: "[token]"'
+
+Response
+```sh
+{
+    "id": 1,
+    "name": "AnthonyHo",
+    "created_at": "2018-09-21T00:15:45.652Z"
+}
+
+```
+#### Update Shop properties
+
+** PUT /shops:id ** -H 'Authorization: "[token]"'
+```sh
+{
+    "name": "Tony The Great",
+    "password": "newPassword"
+}
+
+```
+Response
+```sh
+{
+    "id": 1,
+    "name": "Tony The Great",
+    "created_at": "2018-09-21T00:15:45.652Z"
+}
+
+```
+
+#### Delete Shop
+
+** DELETE /shop/:id ** -H 'Authorization: "[token]"'
+
+Response
+
+```sh
+HTTP/1.1 204 No Content
+```
 
 ### Product API
 
