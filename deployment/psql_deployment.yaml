@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api-frontend
+  labels:
+    app: api
+    tier: frontend
+spec:
+  template:
+    metadata:
+      labels:
+        app: api
+        tier: frontend
+    spec:
+      containers:
+        - name: api-frontend
+          image: gcr.io/${DOCKER_IMAGE}:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http-server
+              containerPort: 8080
+          # The following environment variables will contain the database host,
+          # user and password to connect to the PostgreSQL instance.
+          env:
+            - name: FORMATION
+              value: web=1
+            - name: POSTGRES_DB_HOST
+              value: localhost
+            - name: POSTGRES_DB_PORT
+              value: "5432"
+            # [START cloudsql_secrets]
+            - name: POSTGRES_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: username
+            - name: POSTGRES_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: password
+            # [END cloudsql_secrets]
+        # Change <INSTANCE_CONNECTION_NAME> here to include your GCP
+        # project, the region of your Cloud SQL instance and the name
+        # of your Cloud SQL instance. The format is
+        # $PROJECT:$REGION:$INSTANCE
+        # [START proxy_container]
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.11
+          command: ["/cloud_sql_proxy",
+                    "-instances=${CLOUD_SQL_CONNECTION_NAME}=tcp:5432",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          # [END cloudsql_security_context]
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+        # [END proxy_container]
+      # [START volumes]
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+      # [END volumes]

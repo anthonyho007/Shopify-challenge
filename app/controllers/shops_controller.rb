@@ -17,7 +17,7 @@ class ShopsController < ApplicationController
 
     def update
         @shop.update(shop_params)
-        head :no_content
+        json_response(@shop)
     end
 
     def destroy

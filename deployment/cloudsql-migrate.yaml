@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-db-migrate
+spec:
+  completions: 1
+  template:
+    metadata:
+      name: api-db-migrate
+    spec:
+      containers:
+      - name: api-db-migrate
+        image: gcr.io/${DOCKER_IMAGE}:latest
+        imagePullPolicy: Always
+        args: ["bundle", "exec", "rake", "db:create", "db:migrate", "db:setup"]
+        env:
+        - name: POSTGRES_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
+        - name: POSTGRES_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: password
+        - name: POSTGRES_DB_HOST
+          value: localhost
+        - name: POSTGRES_DB_PORT
+          value: "5432"
+        - name: DB_DBNAME
+          value: "api_production"
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=${CLOUD_SQL_CONN_NAME}=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+      volumes:
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials
+      - name: cloudsql
+        emptyDir:
+      - name: ssl-certs
+        hostPath:
+          path: /etc/ssl/certs
+      restartPolicy: Never

@@ -17,6 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  dataset_id: shopify-challenge-216421
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -80,6 +81,9 @@ test:
 #
 production:
   <<: *default
-  database: api_production
-  username: api
-  password: <%= ENV['API_DATABASE_PASSWORD'] %>
+  timeout: 5000
+  database: "api_production"
+  username: <%= ENV["POSTGRES_DB_USER"] %>
+  password: <%= ENV["POSTGRES_DB_PASSWORD"] %>
+  host: <%= ENV["POSTGRES_DB_HOST"] %>
+  port: <%= ENV["POSTGRES_DB_PORT"] %>
