@@ -1,6 +1,6 @@
 # Shop API Server
 
-A simple Shop API server in Ruby with basic functionalities. This is built for Shopify backend developer challenge.
+A simple Shop API server in Ruby with basic functionalities. This is built for Shopify developer challenge.
 
 <br/>
 
