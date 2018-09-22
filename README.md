@@ -76,7 +76,8 @@ Feel free to play arourd with this server by signin with name="AnthonyHo" and pa
 
 ## Design<a name="Design"></a>
 
-###Database design / relationship
+
+### Database design / relationship
 
 ![Database design diagram](db-design-diagram.png)
 
@@ -118,6 +119,7 @@ The following API will let you create or log in to your own shop
     Creates a new shop and returns a token for authentication
 
 <br/>
+
 #### Sign in with existing shop credentials
 
 **POST      /signin**
@@ -159,8 +161,10 @@ The following API will let you create or log in to your own shop
 ```
 
 <br/>
+
 ### Shop API<a name="Shop"></a>
 <br/>
+
 #### Shop API Endpoints 
 
 The following API will let you query or modify your own shop properties
@@ -175,6 +179,7 @@ The following API will let you query or modify your own shop properties
     Delete your shop
 
 <br/>
+
 #### Get Shop properties
 
 **GET      /shops/:id**           
@@ -557,7 +562,7 @@ Then you would need to build the docker image and push it to google cloud regist
 
     gcloud docker -- push gcr.io/[YOUR_PROJECT_ID]/[APP_NAME] 
 
-You can now create deployment with the following commands and your app will be up on cloud.
+Replace PROJECTID and SQLCONNNAME in the files inside deployment/, You can now create deployment with the following commands and your app will be up on cloud.
 
     kubectl create -f deployment/psql_deployment.yaml
     kubectl create -f deployment/cloudsql-migrate.yaml
