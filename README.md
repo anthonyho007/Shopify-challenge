@@ -81,7 +81,11 @@ Feel free to play arourd with this server by signin with name="AnthonyHo" and pa
 
 ![Database design diagram](db-design-diagram.png)
 
-Each items and orders should belongs to a shop, since a shop cant sell a product or place an order that is not theirs. Order and product relationship is reinforced by has many through association where order has many products through Lineitems, because we dont want to aggregate each product into the order object and that will defeats the purpose of relational database.
+Each items and orders should belongs to a shop, since a shop cant sell a product or place an order that is not theirs. In another word, a shop can only fetch items that belongs to them. Order and product relationship is reinforced by has many through association where order has many products through Lineitems, because we dont want to aggregate each product into the order object and that will defeats the purpose of relational database. In this way, we could easily determine the quantities of a product needed in order to fulfill multiple orders or to obtain the amount of products that we sold through the order.
+
+### CRUD
+
+CRUD opperation on resources/ models are supported through different REST API endpoints.
 
 ### Security
 
