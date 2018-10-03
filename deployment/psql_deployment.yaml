@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-frontend
-          image: gcr.io/${DOCKER_IMAGE}:latest
+          image: gcr.io/${PROJECT_ID}/api:latest
           imagePullPolicy: Always
           ports:
             - name: http-server
@@ -48,7 +48,7 @@ spec:
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.11
           command: ["/cloud_sql_proxy",
-                    "-instances=${CLOUD_SQL_CONNECTION_NAME}=tcp:5432",
+                    "-instances=${PROJECT_ID}:us-central1:${CLOUD_INSTANCE}=tcp:5432",
                     "-credential_file=/secrets/cloudsql/credentials.json"]
           # [END cloudsql_security_context]
           volumeMounts:

@@ -10,9 +10,9 @@ spec:
     spec:
       containers:
       - name: api-db-migrate
-        image: gcr.io/${DOCKER_IMAGE}:latest
+        image: gcr.io/${PROJECT_ID}/api:latest
         imagePullPolicy: Always
-        args: ["bundle", "exec", "rake", "db:create", "db:migrate", "db:setup"]
+        args: ["bundle", "exec", "rake", "db:drop","db:create", "db:migrate", "db:setup"]
         env:
         - name: POSTGRES_DB_USER
           valueFrom:
@@ -33,7 +33,7 @@ spec:
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-                  "-instances=${CLOUD_SQL_CONN_NAME}=tcp:5432",
+                  "-instances=${PROJECT_ID}-216421:us-central1:${CLOUD_INSTANCE}=tcp:5432",
                   "-credential_file=/secrets/cloudsql/credentials.json"]
         volumeMounts:
           - name: cloudsql-instance-credentials
