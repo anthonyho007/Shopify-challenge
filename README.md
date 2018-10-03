@@ -1,4 +1,4 @@
-# Shop API Server
+# A Scalable Shop Web Service
 
 A simple Shop API server in Ruby with basic functionalities. This is built for Shopify developer challenge.
 
@@ -68,9 +68,11 @@ Please refer to the API Docs below for more detailed usage.
 
 ## Demo <a name="Demo"></a>
 
-A demo of this app is hosted through google cloud platform at http://35.232.174.37 .
+A standalone api server is hosted through google cloud platform at http://35.232.174.37 .
 
 Feel free to play arourd with this server by signin with name="AnthonyHo" and password="foobar"
+
+A complete web application including both front-end and backend system is hosted at http://35.225.110.21.
 
 <br/>
 
@@ -93,10 +95,25 @@ All API requests except Authentication API would require user to pass in Authori
 
 ### Deloyment
 
-A demo API server (http://35.232.174.37) is hosted on Google Cloud Platform on top of a kubernette engine with a docker image of the API server.
+A demo of the standalone API server (http://35.232.174.37) is hosted on Google Cloud Platform on top of a kubernette engine with a docker image of the API server.
+
+
+A full web application including front-end and backend end system is hosted on Google kubernetes Engine through this address. http://35.225.110.21/
+
+### Scalability
+
+![Scalable web app architecture](scalable-web-app.png)
+
+Utilized service discovery in kubernetes to create isolation between front-end and backend system and to increase scalability of both system. The front-end system is designed to connect to a backend service dynamically using the cluster's local DNS server to achieve high scalability, instead of having a front-end system tied to any specific backend server instance. When the frontend system wants to issue an API request to the backend system, it would first look up for the DNS of the target backend service then it would travel through ip tables and kubernetes proxy to arrive to the corresponding backend services for the API request. Though this architecture, an user can add, remove, update any system without having an impact on the other system and it would minimize downtime.
 
 
 <br/>
+
+### Front-end system
+
+The frontend portion of this web application can be found through the following github link
+
+    https://github.com/anthonyho007/shop-api-front
 
 ## Development<a name="Development"></a>
 
@@ -572,10 +589,21 @@ Then you would need to build the docker image and push it to google cloud regist
 
     docker build -t gcr.io/[YOUR_PROJECT_ID]/[APP_NAME] .
 
-    gcloud docker -- push gcr.io/[YOUR_PROJECT_ID]/[APP_NAME] 
+    gcloud docker -- push gcr.io/[YOUR_PROJECT_ID]/[APP_NAME]
 
+### To deploy a standalone API server on Google Kerbenetes Engine
 Replace PROJECTID and SQLCONNNAME in the files inside deployment/, You can now create deployment with the following commands and your app will be up on cloud.
 
     kubectl create -f deployment/psql_deployment.yaml
     kubectl create -f deployment/cloudsql-migrate.yaml
     kubectl create -f deployment/api-service.yaml
+
+### To deploy the entire web application with both frontend and backend system
+Replace PROJECTID and SQLCONNNAME in the files inside deployment/, run the following to create the backend replaction controllers and services.
+
+    kubectl create -f deployment/backend-rc.yaml
+    kubectl create -f deployment/backend-srv.yaml
+
+Following the link below to deploy the replication controllers and services for front-end system. 
+
+    https://github.com/anthonyho007/shop-api-front
