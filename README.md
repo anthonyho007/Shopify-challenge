@@ -89,7 +89,9 @@ Each items and orders should belongs to a shop, since a shop cant sell a product
 
 CRUD opperation on resources/ models are supported through different REST API endpoints.
 
-### Security
+### Authorization / Security
+authorization flow diagram
+![authorization flow diagram](authorization-flow-diagram.png)
 
 All API requests except Authentication API would require user to pass in Authorization token in the header and the token can be obtain through Authentication API.
 
